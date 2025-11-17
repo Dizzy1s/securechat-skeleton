@@ -74,13 +74,10 @@ def connect_and_run():
         seq += 1
         time.sleep(0.5)
 
-    # request receipt
     s.send(json.dumps({"type": protocol.MSG_TYPE_RECEIPT_REQ}).encode())
     receipt = json.loads(s.recv(65536).decode())
     print("received receipt:", receipt)
 
-    # optionally verify receipt (would need server cert bytes)
-    # local receipt file creation example:
     local_receipt = create_session_receipt(session_id, CLIENT_KEY_PATH, 1, seq-1)
     print("local receipt:", local_receipt, "transcript_sha256:", compute_transcript_sha256(session_id))
 
