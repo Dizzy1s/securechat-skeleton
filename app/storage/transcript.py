@@ -1,4 +1,3 @@
-# app/storage/transcript.py
 import os
 import hashlib
 from app.common.utils import ensure_dir
