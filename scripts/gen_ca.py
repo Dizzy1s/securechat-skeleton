@@ -48,7 +48,6 @@ ca_cert = (
 
 with open(os.path.join(OUT_DIR, "ca_cert.pem"), "wb") as f:
     f.write(ca_cert.public_bytes(serialization.Encoding.PEM))
-
 print("CA created:")
 print(" - certs/ca_key.pem")
 print(" - certs/ca_cert.pem")

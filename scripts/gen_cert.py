@@ -66,7 +66,6 @@ cert = (
 cert_path = os.path.join(OUT_DIR, f"{cn}_cert.pem")
 with open(cert_path, "wb") as f:
     f.write(cert.public_bytes(serialization.Encoding.PEM))
-
 print("Certificate generated:")
 print(" -", key_path)
 print(" -", cert_path)
