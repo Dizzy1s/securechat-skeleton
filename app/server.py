@@ -9,6 +9,7 @@ from app.common.utils import read_pem
 from app.storage.db import create_user, get_user, init_schema
 from app.storage.transcript import append_entry, create_session_receipt, compute_transcript_sha256
 from app.common.utils import read_pem
+import os
 
 CA_CERT = read_pem("certs/ca_cert.pem")
 SERVER_KEY_PATH = "certs/server_key.pem"
@@ -16,7 +17,16 @@ SERVER_CERT_PEM = read_pem("certs/server_cert.pem")
 
 HOST = "0.0.0.0"; PORT = 9000
 
-init_schema()
+# Only run schema init on first start or when --init flag is used
+if not os.getenv("DB_INITIALIZED"):
+    try:
+        init_schema()
+        print("[+] DB schema ensured")
+        os.environ["DB_INITIALIZED"] = "1"  # Mark as done in this process
+    except Exception as e:
+        if "already exists" not in str(e):
+            raise  # Re-raise if it's not the "already exists" error
+
 server_priv = load_privkey(SERVER_KEY_PATH)
 
 def handle_conn(conn, addr):
