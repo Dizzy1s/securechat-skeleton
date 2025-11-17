@@ -42,7 +42,6 @@ def handle_conn(conn, addr):
         conn.send(json.dumps({"type": protocol.MSG_TYPE_DH_SERVER, "B": str(B)}).encode())
         key16 = derive_aes16_from_shared(priv, A)
 
-        # receive encrypted register/login
         data = conn.recv(300000)
         payload = json.loads(data.decode())
         if payload.get("type") == protocol.MSG_TYPE_ENCRYPTED:
