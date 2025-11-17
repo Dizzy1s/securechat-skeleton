@@ -1,6 +1,4 @@
 # app/common/protocol.py
-# central message types, small helpers for JSON message composition
-
 MSG_TYPE_HELLO = "hello"
 MSG_TYPE_SERVER_HELLO = "server_hello"
 MSG_TYPE_DH_CLIENT = "dh_client"
